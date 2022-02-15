@@ -58,7 +58,8 @@ const cartReducer = (state, action) => {
 
   if (action.type === "CLEAR") {
     return {
-      defaultCartState,
+      items: [],
+      totalAmount: 0,
     };
   }
 

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-// import CartContext from "./cart-context";
+import {sendOrder} from '../services/OrderService';
 
 const defaultCartState = {
   items: [],
@@ -52,14 +52,35 @@ const cartReducer = (state, action) => {
         totalAmount: updatedTotalAmount,
       };
     }
+
+    if (action.type === "CLEAR") {
+      return{
+        items: [],
+        totalAmount: 0
+      }
+    }
     
   return defaultCartState;
 };
 
 export const CartContext = React.createContext({})
 
+
+
 export const CartProvider = (props) => {
   const [cartState, setCartState] = useReducer(cartReducer, defaultCartState);
+
+
+  const addOrderHandler = (customer) => {
+
+    const order = {
+      name: customer.name,
+      address: customer.address,
+      items: cartState.items
+    }
+
+    sendOrder(order)
+  };
 
   const addItemToCartHandler = (item) => {
     setCartState({ type: "ADD", item: item });
@@ -69,11 +90,19 @@ export const CartProvider = (props) => {
     setCartState({ type: "REMOVE", id: id });
   };
 
+  console.log('items', cartState.items); //@DEBUG
+
+  const clearCartHandler = () => {
+    setCartState({ type: "CLEAR"})
+  }
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    clearCart: clearCartHandler,
+    placeOrder: addOrderHandler
   };
 
   return (

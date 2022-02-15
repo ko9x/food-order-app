@@ -14,6 +14,20 @@
     font-size: 1.5rem;
     margin: 1rem 0;
   }
+
+  .confirmation {
+    text-align: center;
+  }
+
+  .confirmation button {
+    font: inherit;
+    cursor: pointer;
+    background-color: #8a2b06;
+    color: white;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+  }
   
   .actions {
     text-align: right;

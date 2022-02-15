@@ -1,6 +1,8 @@
 import styles from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
+import React, {useContext, useEffect} from 'react';
+import { MealContext } from '../../providers/MealsProvider';
 
 const DUMMY_MEALS = [
   {
@@ -29,7 +31,17 @@ const DUMMY_MEALS = [
   },
 ];
 
+
 const AvailableMeals = () => {
+
+  const { getMeals, meals } = useContext(MealContext);
+
+  
+  useEffect(() => {
+    getMeals();
+    console.log('MealContext', MealContext.name); //@DEBUG
+  },[])
+
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
       id={meal.id}

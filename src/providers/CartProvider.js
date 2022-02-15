@@ -58,7 +58,7 @@ const cartReducer = (state, action) => {
 
 export const CartContext = React.createContext({})
 
-const CartProvider = (props) => {
+export const CartProvider = (props) => {
   const [cartState, setCartState] = useReducer(cartReducer, defaultCartState);
 
   const addItemToCartHandler = (item) => {
@@ -82,5 +82,3 @@ const CartProvider = (props) => {
     </CartContext.Provider>
   );
 };
-
-export default CartProvider;

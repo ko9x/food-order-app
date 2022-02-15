@@ -1,7 +1,7 @@
 import styles from "./MealItem.module.css";
 import MealItemForm from "./MealItemForm";
 import { useContext } from "react";
-import CartContext from "../../../store/cart-context";
+import {CartContext} from "../../../providers/CartProvider";
 
 const MealItem = (props) => {
     const cartContext = useContext(CartContext);

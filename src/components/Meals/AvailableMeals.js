@@ -1,48 +1,21 @@
 import styles from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { MealContext } from '../../providers/MealsProvider';
-
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy... and green...",
-    price: 18.99,
-  },
-];
-
 
 const AvailableMeals = () => {
 
-  const { getMeals, meals } = useContext(MealContext);
+  const { getMeals } = useContext(MealContext);
+  const [meals, setMeals] = useState([]);
 
-  
   useEffect(() => {
-    getMeals();
-    console.log('MealContext', MealContext.name); //@DEBUG
-  },[])
+    getMeals().then(meals => {
+      setMeals(meals)
+    })
+  },[getMeals])
 
-  const mealsList = DUMMY_MEALS.map((meal) => (
+  const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
       key={meal.id}

@@ -1,7 +1,7 @@
 export async function getMeals() {
   try {
     const response = await fetch(
-      "https://react-http-max-54195-default-rtdb.firebaseio.com/movies.json"
+      "https://react-http-max-54195-default-rtdb.firebaseio.com/meals.json"
     );
     if (!response.ok) {
       throw new Error("Something went wrong!");
@@ -20,7 +20,6 @@ export async function getMeals() {
       });
     }
 
-    console.log("formattedMeals", formattedMeals); //@DEBUG
     return formattedMeals;
   } catch (error) {
     console.log("error", error); //@DEBUG

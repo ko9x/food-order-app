@@ -36,7 +36,7 @@ const Cart = (props) => {
 
   const onCancelOrder = () => {
     setShowForm(false);
-  }
+  };
 
   const cartItems = (
     <ul className={styles["cart-items"]}>
@@ -74,7 +74,9 @@ const Cart = (props) => {
   );
 
   if (showForm) {
-    content = <OrderForm orderPlaced={onPlacedOrder} cancelOrder={onCancelOrder} />;
+    content = (
+      <OrderForm orderPlaced={onPlacedOrder} cancelOrder={onCancelOrder} />
+    );
   }
 
   if (showConfirmation) {

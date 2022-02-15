@@ -10,11 +10,11 @@ export const MealsProvider = ({children}) => {
       getMeals: async () => {
         let response = await getMeals();
 
+
         if (response) {
           return response;
         } else {
-          console.log('error', ); //@DEBUG
-          // @TODO handle what to do when response.success is false
+          console.log('error in MealsProvider'); //@DEBUG
         }
       },
   };

@@ -22,7 +22,7 @@ export async function getMeals() {
 
     return formattedMeals;
   } catch (error) {
-    console.log("error", error); //@DEBUG
+    console.log("Error in MealsService", error); //@DEBUG
     return error;
   }
 }

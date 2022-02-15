@@ -1,19 +1,25 @@
 import styles from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
-import React, {useContext, useEffect, useState} from 'react';
-import { MealContext } from '../../providers/MealsProvider';
+import React, { useContext, useEffect, useState } from "react";
+import { MealContext } from "../../providers/MealsProvider";
 
 const AvailableMeals = () => {
-
   const { getMeals } = useContext(MealContext);
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState();
 
   useEffect(() => {
-    getMeals().then(meals => {
-      setMeals(meals)
-    })
-  },[getMeals])
+    getMeals().then((meals) => {
+      if (meals.length !== 0 && !meals.message) {
+        setMeals(meals);
+      } else {
+        setHasError(true)
+      }
+    });
+    setIsLoading(false);
+  }, [getMeals]);
 
   const mealsList = meals.map((meal) => (
     <MealItem
@@ -27,7 +33,9 @@ const AvailableMeals = () => {
   return (
     <section className={styles.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {!isLoading && <ul>{mealsList}</ul>}
+        {isLoading && <p>Loading...</p>}
+        {hasError && <p>Something went wrong</p>}
       </Card>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import {sendOrder} from '../services/OrderService';
+import { sendOrder } from "../services/OrderService";
 
 const defaultCartState = {
   items: [],
@@ -19,7 +19,7 @@ const cartReducer = (state, action) => {
     if (existingCartItem) {
       const updatedItem = {
         ...existingCartItem,
-        amount: existingCartItem.amount + action.item.amount
+        amount: existingCartItem.amount + action.item.amount,
       };
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
@@ -33,53 +33,52 @@ const cartReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'REMOVE') {
+  if (action.type === "REMOVE") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
-      );
-      const existingCartItem = state.items[existingCartItemIndex];
-      const updatedTotalAmount = state.totalAmount - existingCartItem.price;
-      let updatedItems;
-      if (existingCartItem.amount === 1) {
-        updatedItems = state.items.filter(item => item.id !== action.id);
-      } else {
-        const updatedItem = {...existingCartItem, amount: existingCartItem.amount - 1};
-        updatedItems = [...state.items];
-        updatedItems[existingCartItemIndex] = updatedItem;
-      }
-      return {
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+    const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+    let updatedItems;
+    if (existingCartItem.amount === 1) {
+      updatedItems = state.items.filter((item) => item.id !== action.id);
+    } else {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount - 1,
       };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
     }
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    };
+  }
 
-    if (action.type === "CLEAR") {
-      return{
-        items: [],
-        totalAmount: 0
-      }
-    }
-    
+  if (action.type === "CLEAR") {
+    return {
+      items: [],
+      totalAmount: 0,
+    };
+  }
+
   return defaultCartState;
 };
 
-export const CartContext = React.createContext({})
-
-
+export const CartContext = React.createContext({});
 
 export const CartProvider = (props) => {
   const [cartState, setCartState] = useReducer(cartReducer, defaultCartState);
 
-
   const addOrderHandler = (customer) => {
-
     const order = {
       name: customer.name,
       address: customer.address,
-      items: cartState.items
-    }
+      items: cartState.items,
+    };
 
-    sendOrder(order)
+    sendOrder(order);
   };
 
   const addItemToCartHandler = (item) => {
@@ -90,11 +89,9 @@ export const CartProvider = (props) => {
     setCartState({ type: "REMOVE", id: id });
   };
 
-  console.log('items', cartState.items); //@DEBUG
-
   const clearCartHandler = () => {
-    setCartState({ type: "CLEAR"})
-  }
+    setCartState({ type: "CLEAR" });
+  };
 
   const cartContext = {
     items: cartState.items,
@@ -102,7 +99,7 @@ export const CartProvider = (props) => {
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
     clearCart: clearCartHandler,
-    placeOrder: addOrderHandler
+    placeOrder: addOrderHandler,
   };
 
   return (

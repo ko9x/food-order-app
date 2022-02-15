@@ -20,11 +20,9 @@ const OrderForm = (props) => {
     }
 
     const enteredOrderInfo = {
-        name: enteredName,
-        address: enteredAddress
+      name: enteredName,
+      address: enteredAddress,
     };
-
-    // console.log('enteredOrderInfo',enteredOrderInfo); //@DEBUG
 
     props.orderPlaced(enteredOrderInfo);
   };
@@ -36,7 +34,7 @@ const OrderForm = (props) => {
         label="Name"
         input={{
           id: "n1",
-          type: "text"
+          type: "text",
         }}
       />
       <Input
@@ -44,7 +42,7 @@ const OrderForm = (props) => {
         label="Address"
         input={{
           id: "a1",
-          type: "text"
+          type: "text",
         }}
       />
       <button>Submit Order</button>

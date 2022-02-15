@@ -27,6 +27,10 @@ const OrderForm = (props) => {
     props.orderPlaced(enteredOrderInfo);
   };
 
+  const cancelHandler = () => {
+      props.cancelOrder()
+  }
+
   return (
     <form className={styles.form} onSubmit={submitHandler}>
       <Input
@@ -45,7 +49,8 @@ const OrderForm = (props) => {
           type: "text",
         }}
       />
-      <button>Submit Order</button>
+      <button onClick={cancelHandler} className={styles.cancel}>Back</button>
+      <button >Submit Order</button>
       {!formIsValid && <p>Please enter a name and address.</p>}
     </form>
   );

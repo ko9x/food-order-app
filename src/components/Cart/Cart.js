@@ -34,6 +34,10 @@ const Cart = (props) => {
     cartContext.clearCart();
   };
 
+  const onCancelOrder = () => {
+    setShowForm(false);
+  }
+
   const cartItems = (
     <ul className={styles["cart-items"]}>
       {cartContext.items.map((item) => (
@@ -70,7 +74,7 @@ const Cart = (props) => {
   );
 
   if (showForm) {
-    content = <OrderForm orderPlaced={onPlacedOrder} />;
+    content = <OrderForm orderPlaced={onPlacedOrder} cancelOrder={onCancelOrder} />;
   }
 
   if (showConfirmation) {

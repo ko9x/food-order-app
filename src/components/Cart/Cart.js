@@ -11,8 +11,8 @@ const Cart = (props) => {
   const [orderInfo, setOrderInfo] = useState("");
   const cartContext = useContext(CartContext);
 
-  const showFormHandler = (prevState) => {
-    setShowForm((prevState) => !prevState);
+  const showFormHandler = () => {
+    setShowForm(true);
   };
 
   const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
